@@ -55,20 +55,13 @@ project_root/
 
 ## Быстрый старт
 
+### 1. Клонирование репозитория
+
+```bash
+git clone https://github.com/fandoringeo-dev/Chat_API.git
+cd <папка-проекта>
+
 ### Шаг 1: Подготовка файлов окружения
-
-Так как файлы с паролями (`.env` и `.test.env`) не хранятся в репозитории, их нужно создать вручную.
-
-**Создайте файл `.env` в корне проекта:**
-
-```env
-DATABASE_URL="postgresql+asyncpg://chat_user:your_secure_password@db:5432/chat_api"
-DB_HOST="db"
-DB_USER="chat_user"
-DB_PASSWORD="your_secure_password"
-DB_PORT="5432"
-DB_NAME="chat_api"
-```
 
 **Создайте файл `.test.env` в корне проекта:**
 
@@ -122,7 +115,7 @@ docker-compose logs -f db
 
 ## Тестирование
 
-Проект включает полный набор unit-тестов. Они используют собственную базу данных (`chat_db_test`), которая автоматически очищается.
+Проект включает набор интеграционных и unit-тестов. Они используют собственную базу данных (`chat_db_test`), которая автоматически очищается.
 
 **Прогнать все тесты:**
 ```bash
