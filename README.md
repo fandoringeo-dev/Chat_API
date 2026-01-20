@@ -60,11 +60,11 @@ project_root/
 ```bash
 git clone https://github.com/fandoringeo-dev/Chat_API.git
 cd <папка-проекта>
+```
 
 ### Шаг 1: Подготовка файлов окружения
 
-<<<<<<< HEAD
-=======
+
 **Создайте файл `.env` в корне проекта:**
 
 ```env
@@ -76,7 +76,7 @@ DB_PORT="5432"
 DB_NAME="chat_api"
 ```
 
->>>>>>> 1143a3a62005fb301cc14962110ef77265f7ffd0
+
 **Создайте файл `.test.env` в корне проекта:**
 
 ```env
