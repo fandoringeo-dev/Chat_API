@@ -1,6 +1,7 @@
 import pytest
 import pytest_asyncio
-from dotenv import dotenv_values
+import os
+from dotenv import load_dotenv
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
@@ -11,22 +12,22 @@ from app.models.chats import Chat
 from app.models.messages import Message
 
 
-config = dotenv_values('.test.env')
-DB_HOST=config.get("DB_HOST")
-DB_PORT=config.get("DB_PORT")
-DB_USER=config.get("DB_USER")
-DB_PASSWORD=config.get("DB_PASSWORD")
-DB_NAME=config.get("DB_NAME")
+load_dotenv('.test.env', override=True)
+
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_USER = os.getenv("DB_USER", "chat_user_test")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "123456")
+DB_NAME = os.getenv("DB_NAME", "chat_db_test")
+
 
 DATABASE_URL_TEST = f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
 
 @pytest_asyncio.fixture()
 async def async_db():
     engine = create_async_engine(
         DATABASE_URL_TEST,
-        echo=False,
-        future=True
+        echo=False
     )
 
     async with engine.begin() as conn:
@@ -42,7 +43,6 @@ async def async_db():
 
     await engine.dispose()
 
-
 @pytest_asyncio.fixture()
 async def client(async_db: AsyncSession):
     async def override_get_async_db():
@@ -55,17 +55,13 @@ async def client(async_db: AsyncSession):
         yield ac
 
     app.dependency_overrides.clear()
-    
 
 @pytest_asyncio.fixture()
 async def add_data_to_db(async_db: AsyncSession):
-    #Создаем 3 чата по 3 сообщения в каждом
     for i in range(1, 4):
-        chat = Chat(title = f'Chat {i}')
-
+        chat = Chat(title=f'Chat {i}')
         for j in range(1, 4):
-            message = Message(chat_id = i, text= f'text {i}.{j}')
+            message = Message(chat_id=i, text=f'text {i}.{j}')
             async_db.add(message)           
         async_db.add(chat)  
-
     await async_db.commit()
