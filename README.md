@@ -55,7 +55,7 @@ project_root/
 
 ## Быстрый старт
 
-### 1. Клонирование репозитория
+### Клонирование репозитория
 
 ```bash
 git clone https://github.com/fandoringeo-dev/Chat_API.git
