@@ -63,6 +63,20 @@ cd <папка-проекта>
 
 ### Шаг 1: Подготовка файлов окружения
 
+<<<<<<< HEAD
+=======
+**Создайте файл `.env` в корне проекта:**
+
+```env
+DATABASE_URL="postgresql+asyncpg://chat_user:your_secure_password@db:5432/chat_api"
+DB_HOST="db"
+DB_USER="chat_user"
+DB_PASSWORD="your_secure_password"
+DB_PORT="5432"
+DB_NAME="chat_api"
+```
+
+>>>>>>> 1143a3a62005fb301cc14962110ef77265f7ffd0
 **Создайте файл `.test.env` в корне проекта:**
 
 ```env
